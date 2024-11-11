@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML FORM</title>
+    <style>
+        *{
+        margin: 0px;
+        padding: 0px;
+        font-family: sans-serif;
+        }
+        body{
+            background-color: yellowgreen;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .main{
+            flex-basis: 400px;
+            /* height: 400px;  */
+            background-color: white;
+            box-shadow: 0px 0px 0px 2px yellow;
+        }
+        .main h1{
+            padding: 20px 20px 10px 20px;
+            font-size: 30px;
+        }
+        .form-outer{
+            margin-bottom: 20px;
+        }
+        .main form{
+            padding: 20px; 
+        }
+        .form-outer label{
+            display: block;
+        }
+        .form-outer input{
+            width: 100%;
+            height: 35%;
+        }
+        .form-outer button{
+            padding: 10px 0px;
+            width: 100%;
+            background: yellowgreen;
+            color: black;
+            font-size: 20px;
+            cursor: pointer;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+    <h1>Get In Touch!</h1>
+    <form method="POST" id="form">
+        <div id="res" style="color: blue; font-size: 14px;">
+
+        </div>
+        <div class="form-outer">    
+            <label >Name</label>
+            <input type="text" name="name">
+        </div>
+        <div class="form-outer">    
+            <label >Email</label>
+            <input type="email" name="address">
+        </div>
+        <div class="form-outer">    
+            <label >Phone</label>
+            <input type="text" name="phone">
+        </div> 
+        <div class="form-outer">
+            <button name="btn">Submit</button>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    let url='https://script.google.com/macros/s/AKfycbwGK_2Gnc6806dUXqOM3madXidP8sRZ5w4fIVXPyQ8q_83GLz-DqC3UxwcQiUKh3KOyVQ/exec'
+    let form=document.querySelector('#form');
+    form.addEventListener("submit",(e)=>{
+        e.target.btn.innerHTML="Submitting...";
+        let d=new FormData(form);
+        fetch(url,{
+            method:"POST",
+            body:d
+        }).then((res)=>res.text())
+        .then((finalRes)=>{
+            e.target.btn.innerHTML="Submit";
+            document.getElementById("res").innerHTML=finalRes;
+            form.reset(); 
+            setTimeout(()=>{
+                document.getElementById("res").innerHTML='';
+            },5000)
+            
+        })
+        e.preventDefault();
+    })
+</script>
+</html>
